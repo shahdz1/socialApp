@@ -5,9 +5,7 @@ import Footer from "../../components/Layout/Footer/Footer";
 export default function AuthLayout() {
   return (
     <>
-    <Nav/>
       <Outlet />
-      <Footer/>
     </>
   );
 }
