@@ -5,9 +5,15 @@ import { loginSchema } from "../../../schema/loginSchema";
 import { sendData } from "../../../services/auth/loginService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-
+import {useContext} from "react";
+import { authContext} from "../../../context/authContext"
 export default function Login() {
   let navigate = useNavigate();
+  let auth = useContext(authContext);
+  if(!auth){
+    throw new Error("there is an error")
+  }
+  let {setToken} = auth;
   let {
     register,
     handleSubmit,
@@ -23,8 +29,9 @@ export default function Login() {
   async function submitForm(data: any) {
     try {
       let result = await sendData(data);
-      console.log(result);
       toast.success(result.data.message);
+      setToken(result.data.data.token);;
+      localStorage.setItem("token", result.data.data.token);
       navigate("/home");
     } catch (err) {
       toast.error("user already exists");
@@ -76,7 +83,7 @@ export default function Login() {
               )}
             </div>
           </div>
-          <button className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-bold rounded-2xl text-lg px-4 py-2.5 text-center leading-5">
+          <button className="text-white bg-linear-to-r from-cyan-500 to-blue-500 hover:bg-linear-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-bold rounded-2xl text-lg px-4 py-2.5 text-center leading-5">
             Login
           </button>
         </form>

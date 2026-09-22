@@ -6,11 +6,17 @@ import Register from "../pages/Auth/Register/Register";
 import MainLayout from "../Layouts/MainLayout/MainLayout";
 import Home from "../pages/Home/Home";
 import Profile from "../pages/Profile/Profile";
+import AuthProtected from "../guard/authProtected/AuthProtected";
+import MainProtected from "../guard/mainProtected/MainProtected";
 
 export const routes = createBrowserRouter([
   {
-    path: "",
-    element: <AuthLayout />,
+    path: "/",
+    element:
+      <AuthProtected>
+        <AuthLayout />
+      </AuthProtected>
+    ,
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Login /> },
@@ -18,12 +24,23 @@ export const routes = createBrowserRouter([
     ],
   },
   {
-    path: "",
-    element: <MainLayout />,
+    path: "/home",
+    element: 
+      <MainProtected>
+        <MainLayout />
+      </MainProtected>
+    ,
     errorElement: <NotFound />,
-    children:[
-        {path:"home", element:<Home/>},
-        {path:"profile", element:<Profile/>}
-    ]
+    children: [{ index: true, element: <Home /> }],
+  },
+  {
+    path: "/profile",
+    element: (
+      <MainProtected>
+        <MainLayout />
+      </MainProtected>
+    ),
+    errorElement: <NotFound />,
+    children: [{ index: true, element: <Profile /> }],
   },
 ]);

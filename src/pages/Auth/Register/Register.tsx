@@ -20,7 +20,7 @@ export default function Register() {
       dateOfBirth: "",
       password: "",
       rePassword: "",
-      gender: ""
+      gender:undefined
     },
     mode: "onBlur",
   });
@@ -166,7 +166,7 @@ export default function Register() {
               {errors.gender.message}
             </span>
           )}
-          <button className="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-bold rounded-2xl text-lg px-4 py-2.5 text-center leading-5">
+          <button className="text-white bg-linear-to-r from-cyan-500 to-blue-500 hover:bg-linear-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-bold rounded-2xl text-lg px-4 py-2.5 text-center leading-5">
             Register
           </button>
         </form>
