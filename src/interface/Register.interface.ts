@@ -1,9 +1,11 @@
-export interface IRegister{
+export interface IRegister extends ILogin{
     name:string,
     username:string,
-    email:string,
-    password:string,
     rePassword:string,
     gender:string,
     dateOfBirth:string
+}
+export interface ILogin{
+    email:string,
+    password:string,
 }
