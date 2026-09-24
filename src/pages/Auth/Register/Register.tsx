@@ -20,7 +20,7 @@ export default function Register() {
       dateOfBirth: "",
       password: "",
       rePassword: "",
-      gender:undefined
+      gender: undefined,
     },
     mode: "onBlur",
   });
