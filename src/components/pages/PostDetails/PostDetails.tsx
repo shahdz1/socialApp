@@ -1,31 +1,32 @@
 import { useContext } from "react";
+import { useParams } from "react-router-dom";
 import { authContext } from "../../../context/authContext";
 import axios from "axios";
 import { baseUrl } from "../../../const/evn";
-import PostCard from "../../shared/postCard/postCard";
-import Loading from "../../shared/Loading/Loading";
-import type { Posts } from "../../../interface/AllPosts.interface";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../../shared/Loading/Loading";
+import PostCard from "../../shared/postCard/postCard";
 
-export default function AllPosts() {
+export default function PostDetails() {
+  let { postId } = useParams();
   let auth = useContext(authContext);
   if (!auth) {
     throw new Error("there is an error");
   }
   let { token } = auth;
-
-  function getAllPosts() {
-    return axios.get(`${baseUrl}/posts`, {
+  function getPostDetails() {
+    return axios.get(`${baseUrl}/posts/${postId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
   }
   let { data, isLoading, isError } = useQuery({
-    queryFn: getAllPosts,
-    queryKey: ["allPosts"],
-    select: (data) => data?.data.data.posts,
+    queryFn: getPostDetails,
+    queryKey: ["postDetails", postId],
+    select: (data) => data?.data.data.post,
   });
+
   if (isLoading) {
     return <Loading />;
   }
@@ -36,12 +37,9 @@ export default function AllPosts() {
       </p>
     );
   }
-
   return (
     <>
-      {data.map((post: Posts) => (
-        <PostCard key={post._id} {...post} singelDetails={false}/>
-      ))}
+        <PostCard {...data} singelDetails={true}/>
     </>
   );
 }

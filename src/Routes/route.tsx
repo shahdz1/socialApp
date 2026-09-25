@@ -8,15 +8,16 @@ import Home from "../pages/Home/Home";
 import Profile from "../pages/Profile/Profile";
 import AuthProtected from "../guard/authProtected/AuthProtected";
 import MainProtected from "../guard/mainProtected/MainProtected";
+import PostDetails from "../components/pages/PostDetails/PostDetails";
 
 export const routes = createBrowserRouter([
   {
     path: "/",
-    element:
+    element: (
       <AuthProtected>
         <AuthLayout />
       </AuthProtected>
-    ,
+    ),
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Login /> },
@@ -25,11 +26,11 @@ export const routes = createBrowserRouter([
   },
   {
     path: "/home",
-    element: 
+    element: (
       <MainProtected>
         <MainLayout />
       </MainProtected>
-    ,
+    ),
     errorElement: <NotFound />,
     children: [{ index: true, element: <Home /> }],
   },
@@ -42,5 +43,15 @@ export const routes = createBrowserRouter([
     ),
     errorElement: <NotFound />,
     children: [{ index: true, element: <Profile /> }],
+  },
+  {
+    path: "/postDetails/:postId",
+    element: (
+      <MainProtected>
+        <MainLayout />
+      </MainProtected>
+    ),
+    errorElement: <NotFound />,
+    children: [{ index: true, element: <PostDetails /> }],
   },
 ]);

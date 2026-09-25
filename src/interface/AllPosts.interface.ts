@@ -1,4 +1,5 @@
 export interface Posts {
+  singelDetails: any;
   _id: string;
   body: string;
   image: string;
