@@ -5,6 +5,7 @@ import { registerSchema } from "../../../schema/registerSchema";
 import { sendData } from "../../../services/auth/registerService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import type { IRegister } from "../../../interface/Register.interface";
 export default function Register() {
   let navigate = useNavigate();
   let {
@@ -24,10 +25,9 @@ export default function Register() {
     },
     mode: "onBlur",
   });
-  async function submitForm(data: any) {
+  async function submitForm(data: IRegister) {
     try {
       let result = await sendData(data);
-      console.log(result);
       toast.success(result.data.message);
       navigate("/");
     } catch (err) {

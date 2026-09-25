@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import {useContext} from "react";
 import { authContext} from "../../../context/authContext"
+import type { ILogin } from "../../../interface/Register.interface";
 export default function Login() {
   let navigate = useNavigate();
   let auth = useContext(authContext);
@@ -26,7 +27,7 @@ export default function Login() {
     },
     mode: "onBlur",
   });
-  async function submitForm(data: any) {
+  async function submitForm(data: ILogin) {
     try {
       let result = await sendData(data);
       toast.success(result.data.message);

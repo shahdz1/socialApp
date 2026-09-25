@@ -30,7 +30,6 @@ export default function AllPosts() {
         setError(false);
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setError(true);
       });
