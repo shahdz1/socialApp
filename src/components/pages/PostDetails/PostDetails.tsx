@@ -5,7 +5,7 @@ import axios from "axios";
 import { baseUrl } from "../../../const/evn";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../shared/Loading/Loading";
-import PostCard from "../../shared/postCard/postCard";
+import PostCommentDetails from "../PostCommentDetails/PostCommentDetails";
 
 export default function PostDetails() {
   let { postId } = useParams();
@@ -39,7 +39,7 @@ export default function PostDetails() {
   }
   return (
     <>
-        <PostCard {...data} singelDetails={true}/>
+        <PostCommentDetails {...data}/>
     </>
   );
 }

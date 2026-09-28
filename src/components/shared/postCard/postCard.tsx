@@ -16,11 +16,23 @@ export default function PostCard(details: Posts) {
           ) : null}
 
           <hr className="mt-2 mb-2" />
+          <p className="text-gray-800 font-semibold">Comment</p>
+          <hr className="mt-2 mb-2" />
 
-          {details.topComment ? (
-            <PostCardComment {...details.topComment} />
+          {details?.Comments?.length > 0 ? (
+            <>
+              {details?.Comments.map((Comment: any) => {
+                return <PostCardComment {...Comment} />;
+              })}
+            </>
           ) : (
-            <p className="text-slate-500">there is no comments</p>
+            <>
+              {details.topComment ? (
+                <PostCardComment {...details.topComment} />
+              ) : (
+                <p className="text-slate-500">there is no comments</p>
+              )}
+            </>
           )}
         </div>
       </div>

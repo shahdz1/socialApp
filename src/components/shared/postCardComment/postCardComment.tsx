@@ -6,8 +6,6 @@ export default function PostCardComment({
 }: Comment) {
   return (
     <>
-      <p className="text-gray-800 font-semibold">Comment</p>
-      <hr className="mt-2 mb-2" />
       <div className="mt-4">
         <div className="flex items-center space-x-2">
           <img

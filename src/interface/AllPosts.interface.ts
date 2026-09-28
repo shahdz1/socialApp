@@ -1,3 +1,4 @@
+
 export interface Posts {
   singelDetails: any;
   _id: string;
@@ -15,6 +16,7 @@ export interface Posts {
   isShare: boolean;
   id: string;
   bookmarked: boolean;
+  Comments:any;
 }
 
 export interface User {
