@@ -1,26 +1,27 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { authContext } from "../../../context/authContext";
-import { userContext } from "../../../context/userContext";
+import { authContext, type AuthContextType } from "../../../context/authContext";
+import { userContext, type UserContextType } from "../../../context/userContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Nav() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  let auth = useContext(authContext);
-  let user = useContext(userContext);
-  if (!auth) {
-    throw new Error("ther is an error");
-  }
-  if (!user) {
-    throw new Error("ther is an error");
-  }
+  let auth = useContext(authContext) as AuthContextType;
+  let user = useContext(userContext) as UserContextType;
+
   const { userData } = user;
   let { setToken } = auth;
+
   let navigate = useNavigate();
+
+  const query = useQueryClient()
+
   function logOutSystem() {
     localStorage.removeItem("token");
     setToken(null);
     navigate("/");
+    query.removeQueries({queryKey: ["userData"]})
   }
 
   return (

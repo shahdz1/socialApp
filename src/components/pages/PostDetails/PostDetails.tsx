@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { authContext } from "../../../context/authContext";
+import { authContext, type AuthContextType } from "../../../context/authContext";
 import axios from "axios";
 import { baseUrl } from "../../../const/evn";
 import { useQuery } from "@tanstack/react-query";
@@ -9,10 +9,7 @@ import PostCommentDetails from "../PostCommentDetails/PostCommentDetails";
 
 export default function PostDetails() {
   let { postId } = useParams();
-  let auth = useContext(authContext);
-  if (!auth) {
-    throw new Error("there is an error");
-  }
+  let auth = useContext(authContext) as AuthContextType;
   let { token } = auth;
   function getPostDetails() {
     return axios.get(`${baseUrl}/posts/${postId}`, {

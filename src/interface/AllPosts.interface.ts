@@ -1,4 +1,3 @@
-
 export interface Posts {
   singelDetails: any;
   _id: string;
@@ -16,7 +15,7 @@ export interface Posts {
   isShare: boolean;
   id: string;
   bookmarked: boolean;
-  Comments:any;
+  Comments: any;
 }
 
 export interface User {
@@ -26,7 +25,7 @@ export interface User {
   photo: string;
 }
 
-export interface Comment{
+export interface Comment {
   _id: string;
   content: string;
   commentCreator: CommentCreator;
@@ -37,4 +36,7 @@ export interface CommentCreator {
   name: string;
   username: string;
   photo: string;
+}
+export interface ICreatePost {
+  body: string;
 }

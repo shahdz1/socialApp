@@ -1,6 +1,6 @@
 import { createContext, useState, type Dispatch, type SetStateAction } from "react";
 
-type AuthContextType = {
+ export type AuthContextType = {
     token: string | null,
     setToken: Dispatch<SetStateAction<string | null>>
 }

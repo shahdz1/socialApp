@@ -1,47 +1,35 @@
 import axios from "axios";
-import {
-  createContext,
-  useEffect,
-  useState,
-  type Dispatch,
-  type ReactNode,
-  type SetStateAction,
-} from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import { baseUrl } from "../const/evn";
 import type { IUser } from "../interface/User.interface";
+import { authContext, type AuthContextType } from "./authContext";
+import { useQuery } from "@tanstack/react-query";
 
-type UserContextType = {
+export type UserContextType = {
   userData: IUser | null;
-  setUser: Dispatch<SetStateAction<IUser | null>>;
 };
 
 export const userContext = createContext<UserContextType | null>(null);
 
 export function UserContextProvider({ children }: { children: ReactNode }) {
-  const [userData, setUser] = useState<IUser | null>(null);
+  const { token } = useContext(authContext) as AuthContextType;
+
   function getUserDate() {
-    axios
-      .get(`${baseUrl}/users/profile-data`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .then((response) => {
-        setUser(response.data.data.user);
-        console.log("user", response.data.data.user);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    return axios.get(`${baseUrl}/users/profile-data`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
   }
-  useEffect(() => {
-    if (localStorage.getItem("token") !== null) {
-      getUserDate();
-    }
-  }, []);
+
+  let { data: userData } = useQuery({
+    queryFn: getUserDate,
+    queryKey: ["userData"],
+    enabled: !!token,
+    select: (data) => data?.data.data.user,
+  });
+
   return (
-    <userContext.Provider value={{ userData, setUser }}>
-      {children}
-    </userContext.Provider>
+    <userContext.Provider value={{ userData }}>{children}</userContext.Provider>
   );
 }

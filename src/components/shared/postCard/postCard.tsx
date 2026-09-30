@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 import type { Posts } from "../../../interface/AllPosts.interface";
 import PostCardComment from "../postCardComment/postCardComment";
 import PostCardHeader from "../postCardHeader/postCardHeader";
-
+import CreateComment from "../createComment/createComment";
 export default function PostCard(details: Posts) {
   return (
     <>
-      <div className="bg-gray-100 max-h-screen py-5 flex items-center justify-center">
+      <div className=" max-h-screen py-5 flex items-center justify-center">
         <div className="bg-white p-8 rounded-lg shadow-md max-w-md">
           <PostCardHeader {...details} />
           {!details.singelDetails ? (
@@ -17,6 +17,7 @@ export default function PostCard(details: Posts) {
 
           <hr className="mt-2 mb-2" />
           <p className="text-gray-800 font-semibold">Comment</p>
+          <CreateComment postId={details._id} />
           <hr className="mt-2 mb-2" />
 
           {details?.Comments?.length > 0 ? (

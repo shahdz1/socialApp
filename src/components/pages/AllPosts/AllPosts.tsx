@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { authContext } from "../../../context/authContext";
+import { authContext, type AuthContextType } from "../../../context/authContext";
 import axios from "axios";
 import { baseUrl } from "../../../const/evn";
 import PostCard from "../../shared/postCard/postCard";
@@ -8,10 +8,7 @@ import type { Posts } from "../../../interface/AllPosts.interface";
 import { useQuery } from "@tanstack/react-query";
 
 export default function AllPosts() {
-  let auth = useContext(authContext);
-  if (!auth) {
-    throw new Error("there is an error");
-  }
+  let auth = useContext(authContext) as AuthContextType;
   let { token } = auth;
 
   function getAllPosts() {

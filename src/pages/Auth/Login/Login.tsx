@@ -6,14 +6,13 @@ import { sendData } from "../../../services/auth/loginService";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import {useContext} from "react";
-import { authContext} from "../../../context/authContext"
+import { authContext, type AuthContextType} from "../../../context/authContext"
 import type { ILogin } from "../../../interface/Register.interface";
+import { Helmet } from "react-helmet";
 export default function Login() {
   let navigate = useNavigate();
-  let auth = useContext(authContext);
-  if(!auth){
-    throw new Error("there is an error")
-  }
+  let auth = useContext(authContext) as AuthContextType;
+
   let {setToken} = auth;
   let {
     register,
@@ -39,7 +38,10 @@ export default function Login() {
     }
   }
 
-  return (
+  return <>
+    <Helmet>
+        <title>Login</title>
+      </Helmet>
     <section className="py-20">
       <div className="mx-auto max-w-100 lg:max-w-1/2 shadow-2xl bg-white p-6 rounded-lg px-8 ">
         <h1 className="text-5xl font-bold text-sky-800 text-center">Login</h1>
@@ -90,5 +92,5 @@ export default function Login() {
         </form>
       </div>
     </section>
-  );
+  </>
 }
