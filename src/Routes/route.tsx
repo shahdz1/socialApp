@@ -54,4 +54,6 @@ export const routes = createBrowserRouter([
     errorElement: <NotFound />,
     children: [{ index: true, element: <PostDetails /> }],
   },
-]);
+],{
+  basename:'/socialApp'
+});
